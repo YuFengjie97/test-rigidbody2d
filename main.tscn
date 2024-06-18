@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1vnymo3l8t7c"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_4duho"]
+[ext_resource type="Texture2D" uid="uid://bcrdqgxvr4dcl" path="res://icon.svg" id="1_c32aw"]
+[ext_resource type="Script" path="res://Enemy.gd" id="3_kj1pc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a2g1n"]
+size = Vector2(1014, 73)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xl3o"]
+size = Vector2(79.5, 82.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3471"]
+size = Vector2(124, 127)
+
+[node name="Main" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(23, 450)
+collision_mask = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="Ground"]
+position = Vector2(-3, -6)
+color = Color(0.385408, 0.83713, 0.734778, 1)
+polygon = PackedVector2Array(-13, 119, 1003, 119, 1002, 191, -13, 190)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(495, 151)
+shape = SubResource("RectangleShape2D_a2g1n")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(74, 200)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_4duho")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(2, -1)
+scale = Vector2(0.617188, 0.679688)
+texture = ExtResource("1_c32aw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-0.25, -2.75)
+shape = SubResource("RectangleShape2D_1xl3o")
+
+[node name="Enemy" type="RigidBody2D" parent="."]
+position = Vector2(536, 401)
+collision_layer = 4
+collision_mask = 3
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("3_kj1pc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
+position = Vector2(3, 4)
+texture = ExtResource("1_c32aw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(3, 3.5)
+shape = SubResource("RectangleShape2D_u3471")
+
+[connection signal="body_entered" from="Enemy" to="Enemy" method="_on_body_entered"]
