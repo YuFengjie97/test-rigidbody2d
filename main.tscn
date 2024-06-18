@@ -1,11 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1vnymo3l8t7c"]
+[gd_scene load_steps=6 format=3 uid="uid://d1vnymo3l8t7c"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_4duho"]
 [ext_resource type="Texture2D" uid="uid://bcrdqgxvr4dcl" path="res://icon.svg" id="1_c32aw"]
 [ext_resource type="Script" path="res://Enemy.gd" id="3_kj1pc"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a2g1n"]
-size = Vector2(1014, 73)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1xl3o"]
 size = Vector2(79.5, 82.5)
@@ -16,20 +13,18 @@ size = Vector2(124, 127)
 [node name="Main" type="Node2D"]
 
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(23, 450)
+position = Vector2(109, 513)
 collision_mask = 2
 
-[node name="Polygon2D" type="Polygon2D" parent="Ground"]
-position = Vector2(-3, -6)
-color = Color(0.385408, 0.83713, 0.734778, 1)
-polygon = PackedVector2Array(-13, 119, 1003, 119, 1002, 191, -13, 190)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground"]
+polygon = PackedVector2Array(-191, -22, -74, -25, -70, 183, 1125, 182, 1124, -36, 1197, -38, 1196, 206, -181, 217)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2(495, 151)
-shape = SubResource("RectangleShape2D_a2g1n")
+[node name="Polygon2D" type="Polygon2D" parent="Ground"]
+position = Vector2(-2, -10)
+polygon = PackedVector2Array(-195, -30, -74, -25, -68, 182, 1122, 177, 1128, -34, 1194, -35, 1194, 201, -179, 215)
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(74, 200)
+position = Vector2(244, 375)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_4duho")
@@ -44,9 +39,10 @@ position = Vector2(-0.25, -2.75)
 shape = SubResource("RectangleShape2D_1xl3o")
 
 [node name="Enemy" type="RigidBody2D" parent="."]
-position = Vector2(536, 401)
+position = Vector2(638, 480)
 collision_layer = 4
 collision_mask = 3
+gravity_scale = 0.0
 max_contacts_reported = 2
 contact_monitor = true
 script = ExtResource("3_kj1pc")
